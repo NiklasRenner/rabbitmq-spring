@@ -1,18 +1,22 @@
 package dk.renner.website
 
-import dk.renner.website.control.GenericService
+import com.rabbitmq.client.Channel
+import dk.renner.website.config.RabbitMqProperties
+import dk.renner.website.control.RabbitMqPublisherService
+import dk.renner.website.rabbitmq.TestConsumer
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import java.util.*
 import javax.annotation.PostConstruct
-import kotlin.collections.HashMap
-import kotlin.system.measureTimeMillis
 
 @SpringBootApplication
-class WebsiteApplication(val genericService: GenericService) {
+class WebsiteApplication(val rabbitMqProperties: RabbitMqProperties, val rabbitMqChannel: Channel,
+                         val rabbitMqPublisherService: RabbitMqPublisherService) {
 
     @PostConstruct
-    fun start() = genericService.doStuff()
+    fun init(){
+        rabbitMqChannel.basicConsume(rabbitMqProperties.queue, true, TestConsumer())
+        println("hello ${rabbitMqProperties.user}")
+    }
 
 }
 
