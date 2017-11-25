@@ -12,5 +12,6 @@ class RabbitMqProperties {
     var port: String = "5672"
     var exchange: String = "test.exchange"
     var queue: String = "test.queue"
+    var replyQueuePrefix: String = "test.queue.reply"
     var routingKey: String = "test.key"
 }

@@ -5,5 +5,6 @@ rabbitmq:
   port: 5672
   exchange: test.exchange
   queue: test.queue
+  replyQueuePrefix: test.reply
   routingKey: post-message
 
