@@ -1,3 +1,4 @@
+import org.apache.tools.ant.taskdefs.ExecTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -32,6 +33,16 @@ tasks {
             jvmTarget = "1.8"
             freeCompilerArgs = listOf("-Xjsr305=strict")
         }
+    }
+
+    createTask("buildImage", Exec::class) {
+        commandLine = listOf("docker", "build", "-f", "rabbitmq-docker/Dockerfile", "-t", "rabbitmq-rpc", ".")
+
+    }
+
+    createTask("runContainer", Exec::class) {
+        commandLine = listOf("docker", "run", "-d", "--name", "rabbitmq-rpc", "-p", "15672:15672", "-p", "5672:5672", "rabbitmq-rpc")
+        dependsOn("buildImage")
     }
 }
 
