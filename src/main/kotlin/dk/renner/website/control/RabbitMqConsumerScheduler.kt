@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
 @Component
-class RabbitMqConsumerService(val rabbitMqProperties: RabbitMqProperties, val rabbitMqChannel: Channel) {
+class RabbitMqConsumerScheduler(val rabbitMqProperties: RabbitMqProperties, val rabbitMqChannel: Channel) {
 
     var consumer: QueueingConsumer = QueueingConsumer(rabbitMqChannel).also {
         rabbitMqChannel.basicConsume(rabbitMqProperties.queue, false, it)
