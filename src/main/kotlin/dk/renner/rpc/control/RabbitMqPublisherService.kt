@@ -3,14 +3,8 @@ package dk.renner.rpc.control
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.QueueingConsumer
 import dk.renner.rpc.config.RabbitMqProperties
-import dk.renner.rpc.util.rabbitMqMessageProperties
-import dk.renner.rpc.util.logFor
-import dk.renner.rpc.util.timestampNow
-import dk.renner.rpc.util.uuid
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import dk.renner.rpc.util.*
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/rabbitmq")
@@ -21,9 +15,7 @@ class RabbitMqPublisherService(val rabbitMqProperties: RabbitMqProperties, val r
     fun rpc(@RequestParam message: String): String {
         // required properties for consumer to reply
         val correlationId = uuid()
-        val replyQueueName = rabbitMqChannel
-                .queueDeclare("${rabbitMqProperties.replyQueuePrefix}.$correlationId", false, true, true, null)
-                .queue
+        val replyQueueName = rabbitMqChannel.replyQueueDeclare(rabbitMqProperties.replyQueuePrefix, correlationId)
 
         // publish message
         val props = rabbitMqMessageProperties {

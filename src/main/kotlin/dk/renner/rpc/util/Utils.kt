@@ -1,6 +1,7 @@
 package dk.renner.rpc.util
 
 import com.rabbitmq.client.AMQP
+import com.rabbitmq.client.Channel
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.time.LocalDateTime
@@ -22,5 +23,9 @@ typealias RabbitMqMessagePropertiesBuilder = AMQP.BasicProperties.Builder
 fun RabbitMqMessagePropertiesBuilder.timestampNow(): RabbitMqMessagePropertiesBuilder
         = timestamp(Date.from(LocalDateTime.now().toInstant(ZoneOffset.UTC)))
 
-fun rabbitMqMessageProperties(applyTo: RabbitMqMessagePropertiesBuilder.() -> RabbitMqMessagePropertiesBuilder): RabbitMqMessageProperties
+inline fun rabbitMqMessageProperties(applyTo: RabbitMqMessagePropertiesBuilder.() -> RabbitMqMessagePropertiesBuilder): RabbitMqMessageProperties
         = RabbitMqMessagePropertiesBuilder().applyTo().build()
+
+fun Channel.replyQueueDeclare(prefix: String, correlationId: String): String
+        = queueDeclare("$prefix.$correlationId", false, true, true, null)
+        .queue

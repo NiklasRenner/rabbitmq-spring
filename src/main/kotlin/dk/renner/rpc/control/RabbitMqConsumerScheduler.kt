@@ -3,9 +3,7 @@ package dk.renner.rpc.control
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.QueueingConsumer
 import dk.renner.rpc.config.RabbitMqProperties
-import dk.renner.rpc.util.logFor
-import dk.renner.rpc.util.rabbitMqMessageProperties
-import dk.renner.rpc.util.timestampNow
+import dk.renner.rpc.util.*
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
