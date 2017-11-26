@@ -1,4 +1,4 @@
-package dk.renner.website
+package dk.renner.rpc
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
-class WebsiteApplicationTests {
+class RabbitMqRpcApplicationTests {
 
     @Test
     fun `something happens`() {

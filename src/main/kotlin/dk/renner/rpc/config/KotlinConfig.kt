@@ -1,4 +1,4 @@
-package dk.renner.website.config
+package dk.renner.rpc.config
 
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.Connection

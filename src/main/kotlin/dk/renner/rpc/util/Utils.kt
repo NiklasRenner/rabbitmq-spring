@@ -1,4 +1,4 @@
-package dk.renner.website.util
+package dk.renner.rpc.util
 
 import com.rabbitmq.client.AMQP
 import org.slf4j.Logger
