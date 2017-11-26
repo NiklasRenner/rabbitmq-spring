@@ -20,13 +20,13 @@ class RabbitMqConsumerScheduler(val rabbitMqProperties: RabbitMqProperties, val 
     fun listen() {
         val delivery = consumer.nextDelivery() // blocking
         val deliveryProps = delivery.properties
+        val message = String(delivery.body).also { log.info("recieved message from producer '$it'") }
+
+        val reply = message.reversed()
         val replyProps = rabbitMqMessageProperties {
             correlationId(deliveryProps.correlationId)
             timestampNow()
         }
-
-        val message = String(delivery.body).also { log.info("recieved message from producer '$it'") }
-        val reply = message.reversed()
 
         rabbitMqChannel.basicPublish("", deliveryProps.replyTo, replyProps, reply.toByteArray())
         rabbitMqChannel.basicAck(delivery.envelope.deliveryTag, false)
