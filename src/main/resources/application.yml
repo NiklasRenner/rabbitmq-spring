@@ -4,7 +4,9 @@ rabbitmq:
   host: 192.168.1.56
   port: 5672
   exchange: rpc.exchange
+  routingKey: rpc.message
   queue: rpc.queue
   replyQueuePrefix: rpc.reply
-  routingKey: rpc.message
+  rpcTimeout: 5000
+
 

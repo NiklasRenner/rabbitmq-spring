@@ -9,9 +9,10 @@ class RabbitMqProperties {
     var user: String = "guest"
     var password: String = "guest"
     var host: String = "localhost"
-    var port: String = "5672"
+    var port: Int = 5672
     var exchange: String = "test.exchange"
     var queue: String = "test.queue"
     var replyQueuePrefix: String = "test.queue.reply"
     var routingKey: String = "test.key"
+    var rpcTimeout: Long = 60000
 }

@@ -15,7 +15,7 @@ class KotlinConfig {
     @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
     fun rabbitMqConnectionFactory(rabbitMqProperties: RabbitMqProperties) = ConnectionFactory().apply {
         host = rabbitMqProperties.host
-        port = rabbitMqProperties.port.toInt()
+        port = rabbitMqProperties.port
         username = rabbitMqProperties.user
         password = rabbitMqProperties.password
     }
