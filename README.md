@@ -2,7 +2,7 @@
 
 This is an example spring-boot application, written in kotlin, using a remote rabbitmq-server to transport rpc-calls.
 The flow for an rpc-call is `producer -> rabbitmq -> consumer -> rabbitmq -> producer`.
-Because of this flow you can scale this application really well, by refactoring producers/consumers into client/server applications,
+Because of this flow you can scale this application horizontally, by refactoring producers/consumers into client/server applications,
 and then just add more consumers on new machines, when they aren't processing producer requests fast enough.
 
 ### prerequisites
