@@ -1,7 +1,4 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformJvmPlugin
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import kotlin.reflect.jvm.internal.impl.config.KotlinCompilerVersion
 
 buildscript {
     val kotlinVersion: String by extra
