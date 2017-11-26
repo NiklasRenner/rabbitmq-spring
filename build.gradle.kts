@@ -36,8 +36,8 @@ tasks {
     }
 
     createTask("runRabbitmqContainer", Exec::class) {
-	workingDir("rabbitmq-docker")
-	executable(File(workingDir, "run.sh"))
+        workingDir("rabbitmq-docker")
+        executable(File(workingDir, "run.sh"))
     }
 }
 
