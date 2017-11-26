@@ -36,7 +36,8 @@ tasks {
     }
 
     createTask("buildRabbitmqImage", Exec::class) {
-        commandLine = listOf("docker", "build", "-f", "rabbitmq-docker/Dockerfile", "-t", "rabbitmq-rpc", ".")
+        workingDir("${project.rootDir}/rabbitmq-docker}")
+        commandLine = listOf("docker", "build", "-t", "rabbitmq-rpc", ".")
 
     }
 
