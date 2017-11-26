@@ -1,12 +1,18 @@
 package dk.renner.rpc
 
+import dk.renner.rpc.rpc.RpcListeners
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.scheduling.annotation.EnableScheduling
+import javax.annotation.PostConstruct
 
 @SpringBootApplication
-@EnableScheduling
-class RabbitMqRpcApplication
+class RabbitMqRpcApplication(val rpcListeners: RpcListeners) {
+    @PostConstruct
+    fun startListeners() {
+        rpcListeners.startRpcListenerDouble()
+        rpcListeners.startRpcListenerReverse()
+    }
+}
 
 fun main(args: Array<String>) {
     runApplication<RabbitMqRpcApplication>(*args)

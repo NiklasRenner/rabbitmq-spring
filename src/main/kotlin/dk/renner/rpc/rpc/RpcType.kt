@@ -1,6 +1,6 @@
 package dk.renner.rpc.rpc
 
-enum class RpcMethod(val type: String) {
+enum class RpcType(val simpleName: String) {
     REVERSE("reverse"),
     DOUBLE("double")
 }
