@@ -6,12 +6,12 @@ import dk.renner.website.config.RabbitMqProperties
 import dk.renner.website.util.amqpPropertyBuilder
 import dk.renner.website.util.log
 import org.springframework.scheduling.annotation.Scheduled
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 
-@Service
+@Component
 class RabbitMqConsumerService(val rabbitMqProperties: RabbitMqProperties, val rabbitMqChannel: Channel) {
 
-    var consumer : QueueingConsumer = QueueingConsumer(rabbitMqChannel).also {
+    var consumer: QueueingConsumer = QueueingConsumer(rabbitMqChannel).also {
         rabbitMqChannel.basicConsume(rabbitMqProperties.queue, false, it)
     }
 
