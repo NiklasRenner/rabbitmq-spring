@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 @Service
 class RabbitMqConsumerService(val rabbitMqProperties: RabbitMqProperties, val rabbitMqChannel: Channel) {
 
-    val consumer = QueueingConsumer(rabbitMqChannel).also {
+    var consumer : QueueingConsumer = QueueingConsumer(rabbitMqChannel).also {
         rabbitMqChannel.basicConsume(rabbitMqProperties.queue, false, it)
     }
 
@@ -24,7 +24,7 @@ class RabbitMqConsumerService(val rabbitMqProperties: RabbitMqProperties, val ra
                 .build()
 
         val message = String(delivery.body).log("got message: ")
-        val response = "responding to: $message"
+        val response = message.reversed()
 
         rabbitMqChannel.basicPublish("", deliveryProperties.replyTo, properties, response.toByteArray())
         rabbitMqChannel.basicAck(delivery.envelope.deliveryTag, false)

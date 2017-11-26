@@ -1,0 +1,102 @@
+{
+  "rabbit_version": "3.6.14",
+  "users": [
+    {
+      "name": "renner",
+      "password_hash": "vWmoj7mEHu+EO51zZBTj5h+gPI+oiSkh0dP18plZchj3au6m",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator"
+    },
+    {
+      "name": "consumer-user",
+      "password_hash": "tJAhKJOc3Roqxt/zy0ZVi9CVMCWbWI7Qgaq3PRa8nMogCtVE",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": ""
+    },
+    {
+      "name": "provider-user",
+      "password_hash": "jiwcw55+uLyNX/IRRWl6i6+Uz2kqtCDBNh1icvkZqOd35ubj",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": ""
+    },
+    {
+      "name": "rpc-user",
+      "password_hash": "SJ8F03PoCdFtaV0N2NoAHkI7Q19KW4hgmdfr5JCXLEUfdeIK",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": ""
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "rpc-user",
+      "vhost": "/",
+      "configure": "rpc.reply.*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "provider-user",
+      "vhost": "/",
+      "configure": "^$",
+      "write": ".*",
+      "read": "^$"
+    },
+    {
+      "user": "consumer-user",
+      "vhost": "/",
+      "configure": "^$",
+      "write": "^$",
+      "read": ".*"
+    },
+    {
+      "user": "renner",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "parameters": [],
+  "global_parameters": [
+    {
+      "name": "cluster_name",
+      "value": "rabbit@ffc2c83ce785"
+    }
+  ],
+  "policies": [],
+  "queues": [
+    {
+      "name": "rpc.queue",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "rpc.exchange",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "rpc.exchange",
+      "vhost": "/",
+      "destination": "rpc.queue",
+      "destination_type": "queue",
+      "routing_key": "rpc.message",
+      "arguments": {}
+    }
+  ]
+}

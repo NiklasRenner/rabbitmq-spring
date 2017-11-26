@@ -1,10 +1,10 @@
 rabbitmq:
-  user: consumer-user
-  password: consumer-user
+  user: rpc-user
+  password: rpc-user
   host: 192.168.1.56
   port: 5672
-  exchange: test.exchange
-  queue: test.queue
-  replyQueuePrefix: test.reply
-  routingKey: post-message
+  exchange: rpc.exchange
+  queue: rpc.queue
+  replyQueuePrefix: rpc.reply
+  routingKey: rpc.message
 
