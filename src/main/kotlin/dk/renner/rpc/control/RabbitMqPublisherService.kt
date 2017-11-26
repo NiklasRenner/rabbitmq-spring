@@ -3,16 +3,17 @@ package dk.renner.rpc.control
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.QueueingConsumer
 import dk.renner.rpc.config.RabbitMqProperties
+import dk.renner.rpc.rpc.RpcMethod
 import dk.renner.rpc.util.*
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/rabbitmq")
+@RequestMapping("/rpc")
 class RabbitMqPublisherService(val rabbitMqProperties: RabbitMqProperties, val rabbitMqChannel: Channel) {
     val log = logFor<RabbitMqPublisherService>()
 
-    @GetMapping("/rpc")
-    fun rpc(@RequestParam message: String): String {
+    @GetMapping("/call")
+    fun rpc(@RequestParam method: RpcMethod, @RequestParam message: String): String {
         // required properties for consumer to reply
         val correlationId = uuid()
         val replyQueueName = rabbitMqChannel.replyQueueDeclare(rabbitMqProperties.replyQueuePrefix, correlationId)
@@ -23,7 +24,7 @@ class RabbitMqPublisherService(val rabbitMqProperties: RabbitMqProperties, val r
             timestampNow()
             replyTo(replyQueueName)
         }
-        rabbitMqChannel.basicPublish(rabbitMqProperties.exchange, rabbitMqProperties.routingKey, props, message.toByteArray())
+        rabbitMqChannel.basicPublish(rabbitMqProperties.exchange, "${rabbitMqProperties.routingKeyPrefix}.${RpcMethod.DOUBLE.type}", props, message.toByteArray())
 
         // consume response
         val consumer = QueueingConsumer(rabbitMqChannel)

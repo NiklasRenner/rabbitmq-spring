@@ -71,7 +71,14 @@
   "policies": [],
   "queues": [
     {
-      "name": "rpc.queue",
+      "name": "rpc.queue.reverse",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "rpc.queue.double",
       "vhost": "/",
       "durable": true,
       "auto_delete": false,
@@ -93,9 +100,17 @@
     {
       "source": "rpc.exchange",
       "vhost": "/",
-      "destination": "rpc.queue",
+      "destination": "rpc.queue.reverse",
       "destination_type": "queue",
-      "routing_key": "rpc.message",
+      "routing_key": "rpc.message.reverse",
+      "arguments": {}
+    },
+    {
+      "source": "rpc.exchange",
+      "vhost": "/",
+      "destination": "rpc.queue.double",
+      "destination_type": "queue",
+      "routing_key": "rpc.message.double",
       "arguments": {}
     }
   ]
