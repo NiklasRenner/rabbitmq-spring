@@ -1,47 +1,48 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
-    val kotlinVersion: String by extra
-    val springBootVersion: String by extra
-
     repositories {
         mavenCentral()
         maven("https://repo.spring.io/milestone")
     }
 
     dependencies {
+        val springBootVersion = "2.0.0.M6"
         classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-        classpath("org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion")
     }
 }
 
 group = "dk.renner.rpc"
 version = "1.0.0-SNAPSHOT"
 
+plugins {
+    val kotlinVersion = "1.1.60"
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
+}
+
 apply {
-    plugin("kotlin")
-    plugin("kotlin-spring")
     plugin("org.springframework.boot")
     plugin("io.spring.dependency-management")
 }
 
 tasks {
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+        }
     }
 }
 
+repositories.addAll(project.buildscript.repositories)
+
 dependencies {
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jre8")
-    compile("org.jetbrains.kotlin:kotlin-reflect")
+    compile(kotlin("stdlib-jre8"))
+    compile(kotlin("reflect"))
+
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("com.rabbitmq:amqp-client:2.7.1")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
-
-// use repositories from buildscript block instead of duplicating configuration
-repositories.addAll(project.buildscript.repositories)
-// hack to get 'compile' etc. functions working in dependencies block, can be done with kotlin plugin, but then explicit version required, and gradle.properties not accessible here..
-plugins { java }
