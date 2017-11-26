@@ -36,12 +36,12 @@ tasks {
     }
 
     createTask("buildRabbitmqImage", Exec::class) {
-        commandLine = listOf("sudo", "docker", "build", "-f", "rabbitmq-docker/Dockerfile", "-t", "rabbitmq-rpc", ".")
+        commandLine = listOf("docker", "build", "-f", "rabbitmq-docker/Dockerfile", "-t", "rabbitmq-rpc", ".")
 
     }
 
     createTask("runRabbitmqContainer", Exec::class) {
-        commandLine = listOf("sudo", "docker", "run", "-d", "--name", "rabbitmq-rpc", "-p", "15672:15672", "-p", "5672:5672", "rabbitmq-rpc")
+        commandLine = listOf("docker", "run", "-d", "--name", "rabbitmq-rpc", "-p", "15672:15672", "-p", "5672:5672", "rabbitmq-rpc")
         dependsOn("buildRabbitmqImage")
     }
 }
