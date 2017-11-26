@@ -9,7 +9,7 @@ buildscript {
 
     repositories {
         mavenCentral()
-        maven(url = "https://repo.spring.io/milestone")
+        maven("https://repo.spring.io/milestone")
     }
 
     dependencies {
