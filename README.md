@@ -10,6 +10,7 @@ and then just add more consumers on new machines, when they aren't processing pr
 * [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 * [RabbitMQ-server](https://www.rabbitmq.com/#getstarted) running locally, or on a server
 (needs port 5672 exposed for messaging, 15672 for admin console)
+* [Docker](https://www.docker.com/) if using the provided Docker configuration for RabbitMQ
 
 ### configure
 
@@ -38,3 +39,7 @@ and should be tweaked to fit your rabbitmq-server instance.
 ##### unix
 
 `./gradlew clean bootRun`
+
+### example REST call to application
+
+`curl -s "localhost:8080/rpc/call?type=reverse&input=input"`
