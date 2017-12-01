@@ -28,7 +28,7 @@ class RpcDispatchController(val rabbitMqProperties: RabbitMqProperties, val rabb
 
         // dispatch rpc-call
         val routingKey = "${rabbitMqProperties.routingKeyPrefix}.${rpcMethod.simpleName}"
-        rabbitMqChannel.basicPublish(rabbitMqProperties.exchange, routingKey, props, input.toByteArray())
+        rabbitMqChannel.basicPublish(rabbitMqProperties.exchange,routingKey, props, input.toByteArray())
 
         // wait for rpc-reply
         val consumer = QueueingConsumer(rabbitMqChannel)

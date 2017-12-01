@@ -3,8 +3,8 @@ rabbitmq:
   password: rpc-user
   host: 192.168.1.56
   port: 5672
-  exchange: rpc.exchange
-  routingKeyPrefix: rpc.message
+  exchange: ""
+  routingKeyPrefix: rpc.queue
   queuePrefix: rpc.queue
   replyQueuePrefix: rpc.reply
   rpcTimeout: 5000
