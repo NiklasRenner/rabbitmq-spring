@@ -17,6 +17,9 @@ class RpcListeners(val rabbitMqProperties: RabbitMqProperties, val rabbitMqChann
     @Async
     fun startRpcListenerDouble() = startListener(RpcType.DOUBLE, rpcHandlers::double)
 
+    @Async
+    fun startRpcListenerSha512() = startListener(RpcType.SHA512, rpcHandlers::sha512)
+
     private fun startListener(rpcType: RpcType, rpcHandler: (String) -> String) {
         val consumer = QueueingConsumer(rabbitMqChannel)
         rabbitMqChannel.basicConsume("${rabbitMqProperties.queuePrefix}.${rpcType.simpleName}", false, consumer)

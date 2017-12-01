@@ -11,6 +11,7 @@ class RabbitMqRpcApplication(val rpcListeners: RpcListeners) {
     fun startListeners() {
         rpcListeners.startRpcListenerDouble()
         rpcListeners.startRpcListenerReverse()
+        rpcListeners.startRpcListenerSha512()
     }
 }
 

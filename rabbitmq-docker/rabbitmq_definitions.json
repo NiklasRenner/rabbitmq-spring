@@ -65,7 +65,7 @@
   "global_parameters": [
     {
       "name": "cluster_name",
-      "value": "rabbit@ffc2c83ce785"
+      "value": "rabbit@server"
     }
   ],
   "policies": [],
@@ -83,34 +83,12 @@
       "durable": true,
       "auto_delete": false,
       "arguments": {}
-    }
-  ],
-  "exchanges": [
-    {
-      "name": "rpc.exchange",
-      "vhost": "/",
-      "type": "topic",
-      "durable": true,
-      "auto_delete": false,
-      "internal": false,
-      "arguments": {}
-    }
-  ],
-  "bindings": [
-    {
-      "source": "rpc.exchange",
-      "vhost": "/",
-      "destination": "rpc.queue.reverse",
-      "destination_type": "queue",
-      "routing_key": "rpc.message.reverse",
-      "arguments": {}
     },
     {
-      "source": "rpc.exchange",
+      "name": "rpc.queue.sha512",
       "vhost": "/",
-      "destination": "rpc.queue.double",
-      "destination_type": "queue",
-      "routing_key": "rpc.message.double",
+      "durable": true,
+      "auto_delete": false,
       "arguments": {}
     }
   ]

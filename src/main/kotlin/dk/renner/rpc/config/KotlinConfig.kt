@@ -4,10 +4,18 @@ import com.rabbitmq.client.*
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.EnableAsync
+import java.security.MessageDigest
+import java.util.*
 
 @Configuration
 @EnableAsync
 class KotlinConfig {
+    @Bean
+    fun sha512(): MessageDigest = MessageDigest.getInstance("SHA-256")
+
+    @Bean
+    fun base64Encoder(): Base64.Encoder = Base64.getEncoder()
+
     @Bean
     fun rabbitMqConnectionFactory(rabbitMqProperties: RabbitMqProperties) = ConnectionFactory().apply {
         host = rabbitMqProperties.host

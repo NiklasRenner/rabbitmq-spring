@@ -31,7 +31,7 @@ tasks {
     withType<KotlinCompile> {
         kotlinOptions {
             jvmTarget = "1.8"
-            freeCompilerArgs = listOf("-Xjsr305=strict")
+            freeCompilerArgs = listOf("-Xjsr305=strict -Xcoroutines=enable")
         }
     }
 
@@ -46,6 +46,7 @@ repositories.addAll(project.buildscript.repositories)
 dependencies {
     compile(kotlin("stdlib-jre8"))
     compile(kotlin("reflect"))
+    compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.19.3")
 
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("com.rabbitmq:amqp-client:2.7.1")

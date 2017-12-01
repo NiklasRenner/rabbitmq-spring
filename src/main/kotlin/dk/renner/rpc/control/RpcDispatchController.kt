@@ -15,8 +15,7 @@ class RpcDispatchController(val rabbitMqProperties: RabbitMqProperties, val rabb
     @GetMapping("/call")
     fun call(@RequestParam type: String, @RequestParam input: String): String {
         // figure out the rpc-type
-        val rpcMethod = RpcType.values().find { it.simpleName == type.toLowerCase() }
-                ?: return "unknown type '$type'"
+        val rpcMethod = RpcType.fromString(type) ?: return "unknown type '$type'"
 
         // required properties for consumer to reply
         val correlationId = uuid()
