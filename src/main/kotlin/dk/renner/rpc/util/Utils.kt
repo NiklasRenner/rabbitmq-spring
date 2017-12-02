@@ -27,5 +27,4 @@ inline fun rabbitMqMessageProperties(applyTo: RabbitMqMessagePropertiesBuilder.(
         = RabbitMqMessagePropertiesBuilder().applyTo().build()
 
 fun Channel.replyQueueDeclare(prefix: String, correlationId: String): String
-        = queueDeclare("$prefix.$correlationId", false, true, true, null)
-        .queue
+        = queueDeclare("$prefix.$correlationId", false, true, true, null).queue

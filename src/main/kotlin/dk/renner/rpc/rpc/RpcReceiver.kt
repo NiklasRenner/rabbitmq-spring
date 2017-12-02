@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
 
 @Component
-class RpcReceiver(val rabbitMqProperties: RabbitMqProperties, val rabbitMqChannel: Channel, val rpcHandlers: RpcHandlers) {
+class RpcReceiver(val rabbitMqProperties: RabbitMqProperties, val rabbitMqChannel: Channel) {
     val log = logFor<RpcReceiver>()
 
     @Async
