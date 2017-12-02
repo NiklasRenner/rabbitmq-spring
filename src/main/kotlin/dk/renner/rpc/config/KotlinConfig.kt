@@ -11,7 +11,7 @@ import java.util.*
 @EnableAsync
 class KotlinConfig {
     @Bean
-    fun sha512(): MessageDigest = MessageDigest.getInstance("SHA-256")
+    fun sha512MessageDigest(): MessageDigest = MessageDigest.getInstance("SHA-256")
 
     @Bean
     fun base64Encoder(): Base64.Encoder = Base64.getEncoder()

@@ -8,19 +8,11 @@ import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
 
 @Component
-class RpcListeners(val rabbitMqProperties: RabbitMqProperties, val rabbitMqChannel: Channel, val rpcHandlers: RpcHandlers) {
-    val log = logFor<RpcListeners>()
+class RpcReceiver(val rabbitMqProperties: RabbitMqProperties, val rabbitMqChannel: Channel, val rpcHandlers: RpcHandlers) {
+    val log = logFor<RpcReceiver>()
 
     @Async
-    fun startRpcListenerReverse() = startListener(RpcType.REVERSE, rpcHandlers::reverse)
-
-    @Async
-    fun startRpcListenerDouble() = startListener(RpcType.DOUBLE, rpcHandlers::double)
-
-    @Async
-    fun startRpcListenerSha512() = startListener(RpcType.SHA512, rpcHandlers::sha512)
-
-    private fun startListener(rpcType: RpcType, rpcHandler: (String) -> String) {
+    fun startListener(rpcType: RpcType, rpcHandler: (String) -> String) {
         val consumer = QueueingConsumer(rabbitMqChannel)
         rabbitMqChannel.basicConsume("${rabbitMqProperties.queuePrefix}.${rpcType.simpleName}", false, consumer)
 
